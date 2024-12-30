@@ -1,0 +1,59 @@
+1. ifconfig(interface configuration):
+        ifconfig helps to display or configure network interfaces.
+        Allows to view status, assign ip addresses etc.
+        If simply typed in, shows all current network interfaces in your system.
+        Alternatvely, use ip command.
+
+2. netstat(network statistics):
+        Used to display network connections, routing table, interface statistics etc.
+        Replaced by ss command.
+
+3. ping:
+        Useed to check network connectivity between host and machine.
+        Sends echo packets and waits for response.
+        ipv6 uses ping6.
+    
+4. ftp:
+        File Transfer Protocol.
+        Used to transfer files from a local machine to remote server over a network.
+        Both upload and download.
+
+5. telnet: 
+        Used to remotely access and manage devices over a network.
+        Insecure(SSH is used instead).
+
+6. traceroute:
+        Helps to trace path of packets from our device to remote host.
+        Works by decreasing TTL till zero or the packet reaches the destination to trace immediate hops.
+
+7. whois: 
+        Used to query ip address, owner etc.
+        Helps in troubleshooting.
+
+8. ip addr: 
+        Part of ip command set.
+        Displays ip addresses assigned to network interfaces of the system.
+
+9. nslookup(Name Server Lookup): 
+        For querying DNS to get ip address mapping and other records.
+        allows to see ip address to domain name mapping.
+
+10. hostname:
+        Allows to see or set hostname of the system ie, name of computer in the network.
+        
+11. cat /etc/hosts: 
+        Also used to map ip address to domain name.
+        The /etc/hosts file is used.
+        Used to map local domain names and static ip resolutions.
+
+12. cat /etc/resolv.conf:
+        /etc/resolv.conf file is used.
+        Contains infromation of DNS servers that are used by the system to look up io addresses.
+
+13. cat /etc/nsswitch.conf:
+        /etc/nsswitch.conf file is used.
+        Controls behavior of system databases and their resolution.
+
+14. arp:
+        Address Resolution Protocol.
+        Used to view arp cache.
