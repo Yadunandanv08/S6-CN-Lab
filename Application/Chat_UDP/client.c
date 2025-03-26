@@ -9,20 +9,20 @@
 void main(){
     int servr;
     char buffer[200];
-    struct sockaddr_in server, client;
+    struct sockaddr_in client;
     int length = sizeof(client);
 
     servr = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 
-    server.sin_family = AF_INET;
-    server.sin_addr.s_addr = inet_addr("127.0.0.1");
-    server.sin_port = htons(2002);
+    client.sin_family = AF_INET;
+    client.sin_addr.s_addr = inet_addr("127.0.0.1");
+    client.sin_port = htons(2002);
 
-    bind(servr, (struct sockaddr*)&server, sizeof(server));
+    bind(servr, (struct sockaddr*)&client, sizeof(client));
 
     while(1){
         recvfrom(servr, buffer, sizeof(buffer)-1, 0, (struct sockaddr*)&client, &length);
-        printf("server: %s", buffer); 
+        printf("client: %s", buffer); 
         printf("client: ");
         fgets(buffer, 100, stdin);
         sendto(servr, buffer, strlen(buffer), 0, (struct sockaddr*)&client, sizeof(client));

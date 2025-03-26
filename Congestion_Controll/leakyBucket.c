@@ -21,8 +21,8 @@ void main(){
             printf("\nBucket Size is %d / %d\n", curr, size);
         }
         else{
-            printf("\ndropped %d packets: ", input-(size-curr));
-            printf("\nBucket Size is %d / %d\n", curr, size);
+            printf("\ndropped %d packets: ", input-(size-curr)); 
+            printf("\nBucket Size is %d / %d\n", size, size);
             curr = size;
         }
         curr -= output;
