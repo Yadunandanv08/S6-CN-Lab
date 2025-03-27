@@ -20,7 +20,7 @@ void main(){
 
     bind(servr, (struct sockaddr*)&client, sizeof(client));
 
-    while(1){
+    while(1){ 
         recvfrom(servr, buffer, sizeof(buffer)-1, 0, (struct sockaddr*)&client, &length);
         printf("client: %s", buffer); 
         printf("client: ");
