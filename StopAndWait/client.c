@@ -5,6 +5,7 @@
 #include<netinet/in.h>
 #include<unistd.h>
 #include<arpa/inet.h>
+#include<time.h>
 
 typedef struct packet{
     int type;
@@ -32,6 +33,9 @@ void main(){
     Packet packrecv;
     
     while(1){
+        srand(time(NULL));
+        int drop = rand()%9;
+        printf("Rando num generated for dropping: %d\n", drop);
         if(ackrecv == 1){
             packsnd.ack = 0;
             packsnd.sn = fnum;
@@ -42,17 +46,22 @@ void main(){
             printf("Packet %d sent!\n", fnum);
             n = recvfrom(sock, &packrecv, sizeof(packrecv), 0, (struct sockaddr*)&server, &length);
         }
-        if(n>0 && packrecv.type == 0 && packrecv.sn == fnum){
+        if(drop !=0 && fnum%drop == 0){
+            printf("Packet dropped!\n");
+            ackrecv = 0;
+            sleep(1);
+        }
+        else if(n>0 && packrecv.type == 0 && packrecv.sn == fnum){
             printf("Acknowledgement for packet %d Recieved\n", fnum);
             ackrecv = 1;
             sleep(1);
+            fnum++;
         }
         else{
             printf("Acknowledgement for packet %d not Recieved\n", fnum);
             ackrecv = 0;
             sleep(1);
         }
-        fnum++;
     }
     close(sock);
 }
