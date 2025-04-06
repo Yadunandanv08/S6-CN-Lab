@@ -11,7 +11,6 @@ typedef struct packet{
     int type;
     int sn;
     char data[100];
-    int ack;
 }Packet;
 
 void main(){
@@ -35,9 +34,7 @@ void main(){
     while(1){
         srand(time(NULL));
         int drop = rand()%9;
-        printf("Rando num generated for dropping: %d\n", drop);
         if(ackrecv == 1){
-            packsnd.ack = 0;
             packsnd.sn = fnum;
             packsnd.type = 1;
             sprintf(packsnd.data, "packet %d", fnum);

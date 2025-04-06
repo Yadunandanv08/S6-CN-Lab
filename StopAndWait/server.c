@@ -10,7 +10,6 @@ typedef struct packet{
     int type;
     int sn;
     char data[100];
-    int ack;
 }Packet;
 
 void main(){
@@ -37,7 +36,6 @@ void main(){
         n = recvfrom(sock, &packrecv, sizeof(packrecv), 0, (struct sockaddr*)&client, &length);
         if(n>0 && packrecv.type == 1 && packrecv.sn == fnum){
             printf("Packet recieved from client: %s\n", packrecv.data);
-            packsnd.ack = 0;
             packsnd.sn = fnum;
             packsnd.type = 0;
             sendto(sock, &packsnd, sizeof(packsnd), 0,(struct sockaddr*)&client, length);
