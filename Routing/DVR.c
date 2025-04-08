@@ -1,33 +1,49 @@
 #include<stdio.h>
+#include<unistd.h>
+
+void initialize(int nodes, int next[100][100]){
+    for(int i=0;i<nodes;i++)
+        for(int j=0;j<nodes;j++)
+            next[i][j]=j;
+}
+
+void route(int nodes, int cost[100][100], int next[100][100]){
+    int updated;
+    do{
+        updated=0;
+        for(int i=0;i<nodes;i++)
+            for(int j=0;j<nodes;j++)
+                for(int k=0;k<nodes;k++)
+                    if(cost[i][j]>cost[i][k]+cost[k][j]){
+                        cost[i][j] = cost[i][k]+cost[k][j];
+                        next[i][j] = k;
+                        updated=1;
+                    }
+    }while(updated);
+}
 
 void main(){
-    int distance[10][10], n;
-    printf("\nEnter number of routers: ");
-    scanf("%d", &n);
-    printf("\nEnter distance matrix: ");
-    for(int i=0;i<n;i++)
-        for(int j = 0;j<n;j++)
-            scanf("%d", &distance[i][j]);
 
-    int count;
-    do{
-        count = 0;
-        for(int i=0;i<n;i++)
-            for(int j=0;j<n;j++)
-                for(int k=0;k<n;k++)
-                    if(distance[i][j]>distance[i][k]+distance[k][j]){
-                        distance[i][j]=distance[i][k]+distance[k][j];
-                        count = 1;
-                    }
-    }while(count!=0);
-    for(int i = 0;i < n;i++){
-        printf("\t%c",i+65);
-    }
-    for(int i = 0; i < n;i++){
-        printf("\n%c\t",i+65);
-        for(int j = 0; j < n;j++){
-            printf("%d\t",distance[i][j]);
-        }
-    }
+    int cost[100][100], next[100][100], nodes;
 
+    printf("Enter number of nodes: ");
+    scanf("%d", &nodes);
+
+    printf("Enter Cost Matrix:\n");
+    for(int i=0;i<nodes;i++){
+        printf("\n");
+        for(int j=0;j<nodes;j++)
+            scanf("%d", &cost[i][j]);
+    }
+        
+    initialize(nodes, next);
+    route(nodes, cost, next);
+
+    for(int i=0;i<nodes;i++){
+        printf("Routing table of node %d\n", i);
+        printf("Curr\tDist\tNext\n");
+        printf("=============================================\n");
+        for(int j=0;j<nodes;j++)
+            printf("%d\t\t%d\t\t%d\n", j, cost[i][j], next[i][j]);
+    }
 }
